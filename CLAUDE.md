@@ -1,4 +1,4 @@
-# NonAIGImageChecker 项目规则
+# ImageTrust 项目规则
 
 ## 核心定位
 

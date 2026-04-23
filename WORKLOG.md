@@ -1,4 +1,4 @@
-# NonAIGImageChecker — 工作日志
+# ImageTrust — 工作日志
 
 ## 2026-04-23
 

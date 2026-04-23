@@ -1,4 +1,5 @@
 import { Camera, Calendar, MapPin, Monitor, Ruler, AlertCircle, CheckCircle } from 'lucide-react';
+import { useTranslation } from '../hooks/useTranslation';
 import type { ExifData } from '../types';
 
 interface ExifPanelProps {
@@ -6,15 +7,17 @@ interface ExifPanelProps {
 }
 
 export default function ExifPanel({ exif }: ExifPanelProps) {
+  const { t } = useTranslation();
+
   if (!exif) return null;
 
   const items = [
-    exif.camera && { icon: Camera, label: '拍摄设备', value: exif.camera },
-    exif.lens && { icon: Camera, label: '镜头', value: exif.lens },
-    exif.dateTime && { icon: Calendar, label: '拍摄时间', value: exif.dateTime },
-    exif.software && { icon: Monitor, label: '编辑软件', value: exif.software },
-    exif.gps && { icon: MapPin, label: '地理位置', value: `${exif.gps.latitude.toFixed(4)}, ${exif.gps.longitude.toFixed(4)}` },
-    (exif.width && exif.height) && { icon: Ruler, label: '图片尺寸', value: `${exif.width} × ${exif.height}` },
+    exif.camera && { icon: Camera, label: t('exif.camera'), value: exif.camera },
+    exif.lens && { icon: Camera, label: t('exif.lens'), value: exif.lens },
+    exif.dateTime && { icon: Calendar, label: t('exif.dateTime'), value: exif.dateTime },
+    exif.software && { icon: Monitor, label: t('exif.software'), value: exif.software },
+    exif.gps && { icon: MapPin, label: t('exif.location'), value: `${exif.gps.latitude.toFixed(4)}, ${exif.gps.longitude.toFixed(4)}` },
+    (exif.width && exif.height) && { icon: Ruler, label: t('exif.dimensions'), value: `${exif.width} × ${exif.height}` },
   ].filter(Boolean) as { icon: React.ElementType; label: string; value: string }[];
 
   return (
@@ -25,7 +28,7 @@ export default function ExifPanel({ exif }: ExifPanelProps) {
         ) : (
           <AlertCircle className="w-5 h-5 text-warning" />
         )}
-        <h3 className="font-semibold text-text">EXIF 元数据</h3>
+        <h3 className="font-semibold text-text">{t('exif.title')}</h3>
       </div>
 
       {items.length > 0 ? (
@@ -46,19 +49,15 @@ export default function ExifPanel({ exif }: ExifPanelProps) {
       ) : (
         <div className="text-center py-4">
           <AlertCircle className="w-8 h-8 text-warning mx-auto mb-2" />
-          <p className="text-sm text-text-secondary">未检测到 EXIF 元数据</p>
-          <p className="text-xs text-text-muted mt-1">
-            这可能是因为图片经过社交媒体压缩、截图保存、或被刻意清除
-          </p>
+          <p className="text-sm text-text-secondary">{t('exif.noExifTitle')}</p>
+          <p className="text-xs text-text-muted mt-1">{t('exif.noExifDesc')}</p>
         </div>
       )}
 
       <div className="mt-4 pt-3 border-t border-border">
         <p className="text-xs text-text-muted leading-relaxed">
-          <strong className="text-text-secondary">提示：</strong>
-          {exif.hasExif
-            ? '存在 EXIF 数据是真实拍摄的有力证据之一，但不等于绝对真实（EXIF 可被伪造）。'
-            : '没有 EXIF 数据 ≠ AI 生成，很多真实图片（如微信保存、截图）也会丢失 EXIF。'}
+          <strong className="text-text-secondary">{t('footer.disclaimer')}</strong>
+          {exif.hasExif ? t('exif.hasExifTip') : t('exif.noExifTip')}
         </p>
       </div>
     </div>

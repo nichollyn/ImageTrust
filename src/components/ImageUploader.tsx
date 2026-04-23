@@ -1,5 +1,6 @@
 import { useState, useCallback, useRef } from 'react';
 import { Upload, X, ImageIcon } from 'lucide-react';
+import { useTranslation } from '../hooks/useTranslation';
 
 interface ImageUploaderProps {
   onImageSelect: (file: File, previewUrl: string) => void;
@@ -8,6 +9,7 @@ interface ImageUploaderProps {
 }
 
 export default function ImageUploader({ onImageSelect, onImageClear, previewUrl }: ImageUploaderProps) {
+  const { t } = useTranslation();
   const [isDragOver, setIsDragOver] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -45,19 +47,19 @@ export default function ImageUploader({ onImageSelect, onImageClear, previewUrl 
       <div className="relative rounded-xl overflow-hidden border border-border bg-white shadow-sm">
         <img
           src={previewUrl}
-          alt="上传预览"
+          alt="Preview"
           className="w-full max-h-80 object-contain bg-surface-alt"
           draggable
         />
         <button
           onClick={onImageClear}
           className="absolute top-3 right-3 w-8 h-8 bg-primary/80 text-white rounded-full flex items-center justify-center hover:bg-primary transition shadow-lg"
-          title="清除图片"
+          title={t('uploader.clearImage')}
         >
           <X className="w-4 h-4" />
         </button>
         <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 to-transparent p-3">
-          <p className="text-white text-xs">👆 可直接拖拽此图片到搜索引擎页面进行搜索</p>
+          <p className="text-white text-xs">👆 {t('uploader.dragHere')}</p>
         </div>
       </div>
     );
@@ -86,13 +88,13 @@ export default function ImageUploader({ onImageSelect, onImageClear, previewUrl 
       </div>
       <div className="text-center">
         <p className="text-text font-medium">
-          {isDragOver ? '松开即可上传' : '点击或拖拽图片到此处'}
+          {isDragOver ? t('uploader.dragHint') : t('uploader.clickOrDrag')}
         </p>
         <p className="text-text-secondary text-sm mt-1">
-          支持 JPG、PNG、WebP、GIF 等常见格式
+          {t('uploader.supportedFormats')}
         </p>
         <p className="text-text-muted text-xs mt-2">
-          ⚡ 图片仅在本地处理，不会上传至任何服务器
+          ⚡ {t('uploader.localProcessing')}
         </p>
       </div>
       <input

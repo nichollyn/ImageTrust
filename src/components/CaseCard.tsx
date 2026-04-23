@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { ExternalLink, Tag, Lightbulb, ChevronDown, ChevronUp } from 'lucide-react';
+import { useTranslation } from '../hooks/useTranslation';
 import type { CaseItem } from '../types';
 
 interface CaseCardProps {
@@ -7,6 +8,7 @@ interface CaseCardProps {
 }
 
 export default function CaseCard({ caseItem }: CaseCardProps) {
+  const { t } = useTranslation();
   const [showClues, setShowClues] = useState(false);
 
   return (
@@ -40,7 +42,7 @@ export default function CaseCard({ caseItem }: CaseCardProps) {
           className="flex items-center gap-1.5 text-sm text-accent hover:text-accent-hover font-medium transition"
         >
           <Lightbulb className="w-4 h-4" />
-          {showClues ? '收起识别要点' : '查看识别要点'}
+          {showClues ? t('case.hideClues') : t('case.viewClues')}
           {showClues ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
         </button>
 
@@ -61,14 +63,14 @@ export default function CaseCard({ caseItem }: CaseCardProps) {
       </div>
 
       <div className="px-5 py-3 bg-surface-alt border-t border-border flex items-center justify-between">
-        <span className="text-xs text-text-muted">来源：{caseItem.source}</span>
+        <span className="text-xs text-text-muted">{t('case.source')}：{caseItem.source}</span>
         <a
           href={caseItem.sourceUrl}
           target="_blank"
           rel="noopener noreferrer"
           className="inline-flex items-center gap-1 text-xs text-accent hover:text-accent-hover font-medium transition"
         >
-          阅读原文
+          {t('case.readOriginal')}
           <ExternalLink className="w-3 h-3" />
         </a>
       </div>

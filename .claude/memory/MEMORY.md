@@ -1,4 +1,4 @@
-# NonAIGImageChecker 项目记忆
+# ImageTrust 项目记忆
 
 ## 核心组件
 
