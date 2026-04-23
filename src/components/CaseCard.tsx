@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { ExternalLink, Tag, Lightbulb, ChevronDown, ChevronUp } from 'lucide-react';
 import { useTranslation } from '../hooks/useTranslation';
+import type { TranslationKey } from '../locales';
 import type { CaseItem } from '../types';
 
 interface CaseCardProps {
@@ -15,14 +16,16 @@ export default function CaseCard({ caseItem }: CaseCardProps) {
     <div className="bg-white rounded-xl border border-border shadow-sm overflow-hidden">
       <div className="p-5">
         <div className="flex items-start justify-between gap-3 mb-3">
-          <h3 className="font-semibold text-text text-lg leading-snug">{caseItem.title}</h3>
+          <h3 className="font-semibold text-text text-lg leading-snug">
+            {t(caseItem.title as TranslationKey)}
+          </h3>
           <span className="text-xs text-text-muted shrink-0 bg-surface-alt px-2 py-1 rounded">
             {caseItem.date}
           </span>
         </div>
 
         <p className="text-sm text-text-secondary leading-relaxed mb-4">
-          {caseItem.description}
+          {t(caseItem.description as TranslationKey)}
         </p>
 
         <div className="flex flex-wrap gap-1.5 mb-4">
@@ -54,7 +57,7 @@ export default function CaseCard({ caseItem }: CaseCardProps) {
                   <span className="w-5 h-5 rounded-full bg-warning/20 text-warning text-xs flex items-center justify-center shrink-0 mt-0.5 font-medium">
                     {idx + 1}
                   </span>
-                  {clue}
+                  {t(clue as TranslationKey)}
                 </li>
               ))}
             </ul>

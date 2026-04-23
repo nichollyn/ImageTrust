@@ -1,7 +1,8 @@
 import { BookOpen, AlertTriangle, CheckCircle, XCircle } from 'lucide-react';
 import { useTranslation } from '../hooks/useTranslation';
+import type { TranslationKey } from '../locales';
 import CaseCard from '../components/CaseCard';
-import { cases, aiCapabilities } from '../data/cases';
+import { cases, capabilityKeys, limitationKeys } from '../data/cases';
 
 export default function LearnPage() {
   const { t } = useTranslation();
@@ -29,10 +30,10 @@ export default function LearnPage() {
             <h2 className="font-semibold text-text">{t('learn.canDoTitle')}</h2>
           </div>
           <ul className="space-y-2.5">
-            {aiCapabilities[0].items.map((item, idx) => (
+            {capabilityKeys.map((key, idx) => (
               <li key={idx} className="flex items-start gap-2 text-sm text-text-secondary">
                 <span className="w-1.5 h-1.5 rounded-full bg-success mt-1.5 shrink-0" />
-                {item}
+                {t(key as TranslationKey)}
               </li>
             ))}
           </ul>
@@ -44,10 +45,10 @@ export default function LearnPage() {
             <h2 className="font-semibold text-text">{t('learn.cannotDoTitle')}</h2>
           </div>
           <ul className="space-y-2.5">
-            {aiCapabilities[1].items.map((item, idx) => (
+            {limitationKeys.map((key, idx) => (
               <li key={idx} className="flex items-start gap-2 text-sm text-text-secondary">
                 <span className="w-1.5 h-1.5 rounded-full bg-text-muted mt-1.5 shrink-0" />
-                {item}
+                {t(key as TranslationKey)}
               </li>
             ))}
           </ul>
