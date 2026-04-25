@@ -1,4 +1,5 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { Analytics } from '@vercel/analytics/react';
 import { LanguageProvider } from './contexts/LanguageContext';
 import Header from './components/Header';
 import Footer from './components/Footer';
@@ -16,6 +17,7 @@ export default function App() {
             <Route path="/learn" element={<LearnPage />} />
           </Routes>
           <Footer />
+          <Analytics />
         </div>
       </BrowserRouter>
     </LanguageProvider>
